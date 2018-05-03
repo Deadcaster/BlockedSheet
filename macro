@@ -1,0 +1,68 @@
+Sub LimparCelulas()
+
+Dim PREENCHER1 As Range
+Dim PREENCHER2 As Range
+
+Set PREENCHER1 = Range("B14:L213")
+Set PREENCHER2 = Range("r14:AB213")
+
+ActiveSheet.Unprotect Password:="nopassword"
+
+PREENCHER2.Locked = False
+PREENCHER2.FormulaHidden = False
+PREENCHER1.Locked = False
+PREENCHER1.FormulaHidden = False
+
+ActiveSheet.Protect Password:="nopassword"
+
+CELULAS = Array("c1:h1", "c3:d3", "c4:d4", "c12:d12", "i3", "k3", "m3", "b6", "c8:c9", "r14:AB213", "b14:l213")
+For i = 0 To UBound(CELULAS)
+
+    Range(CELULAS(i)).ClearContents
+Next i
+
+End Sub
+
+Private Sub WorkSheet_SelectionChange(ByVal Target As Range)
+
+Dim PREENCHER1 As Range
+Dim PREENCHER2 As Range
+
+Set PREENCHER1 = Range("B14:L213")
+Set PREENCHER2 = Range("r14:AB213")
+
+If Not Application.Intersect(PREENCHER1, Range(Target.Address)) Is Nothing Or Not Application.Intersect(PREENCHER2, Range(Target.Address)) Is Nothing Then
+
+'OBRIGATORIAS = Array("c1:h1", "c3:d3", "i3", "k3", "m3", "c4:d4", "b6", "c8", "c9", "c12:d12")
+
+'If IsEmpty(Range("B6").Value) = False Then
+If (Range("c1") <> Empty) Or (Range("C3") <> Empty) Or (Range("i3") <> Empty) Or (Range("k3") <> Empty) Or (Range("m3") <> Empty) Or (Range("C4") <> Empty) Or (Range("b6") <> Empty) Or (Range("C8") <> Empty) Or (Range("c12") <> Empty) Or (Range("C9") <> Empty) Then
+
+ActiveSheet.Unprotect Password:="nopassword"
+PREENCHER2.Locked = False
+PREENCHER2.FormulaHidden = False
+PREENCHER1.Locked = False
+PREENCHER1.FormulaHidden = False
+ActiveSheet.Protect Password:="nopassword"
+
+End If
+
+'If IsEmpty(Range("B6").Value) = True Then
+If (Range("c1") = Empty) Or (Range("C3") = Empty) Or (Range("i3") = Empty) Or (Range("k3") = Empty) Or (Range("m3") = Empty) Or (Range("C4") = Empty) Or (Range("b6") = Empty) Or (Range("C8") = Empty) Or (Range("c12") = Empty) Or (Range("C9") = Empty) Then
+
+MsgBox "Campos em amarelo são obrigatórios"
+
+ActiveSheet.Unprotect Password:="nopassword"
+PREENCHER2.Locked = True
+PREENCHER2.FormulaHidden = False
+PREENCHER1.Locked = True
+PREENCHER1.FormulaHidden = False
+ActiveSheet.Protect Password:="nopassword"
+
+
+End If
+
+End If
+
+End Sub
+
