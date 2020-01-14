@@ -1,0 +1,11 @@
+Private Sub TextBox2_KeyPress(ByVal KeyAscii As MSForms.ReturnInteger)
+Debug.Print KeyAscii
+If KeyAscii >= 48 And KeyAscii <= 57 Then
+    Debug.Print "number"
+Else
+    Debug.Print "other"
+    MsgBox "Somente números"
+    KeyAscii = 0
+End If
+
+End Sub
